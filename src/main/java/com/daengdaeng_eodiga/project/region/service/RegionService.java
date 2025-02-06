@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -52,7 +53,7 @@ public class RegionService {
 	 * @return RegionOwnerCity
 	 * @author 김가은
 	 */
-
+	@Cacheable(value="regionOwnersCache", key="'regionOwner'")
 	public RegionVisit<RegionOwnerCityDetail> fetchRegionOwners() {
 		List<RegionOwnerInfo> regionOwnerInfos = regionOwnerLogRepository.findRegionOwner();
 		HashMap<String,HashMap<String, RegionOwnerCityDetail>> regionOwners = new HashMap<>();

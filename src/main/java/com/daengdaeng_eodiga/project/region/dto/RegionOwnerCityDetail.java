@@ -1,6 +1,7 @@
 package com.daengdaeng_eodiga.project.region.dto;
 
 
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -12,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class RegionOwnerCityDetail {
+public class RegionOwnerCityDetail implements Serializable {
 	private int userId;
 	private String nickname;
 	private int count;
