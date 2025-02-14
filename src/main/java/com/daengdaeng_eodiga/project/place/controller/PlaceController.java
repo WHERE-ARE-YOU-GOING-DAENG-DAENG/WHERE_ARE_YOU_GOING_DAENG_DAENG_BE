@@ -142,15 +142,11 @@ public class PlaceController {
         }
         String myplace;
         if (latitude == 0.0 && longitude == 0.0) {
-            List<Object> agreementLocation = geoService.getNotAgreeInfo(userId);
+            NoGeoUserInfoDto NoAgreeUserGeoInfo = geoService.getNotAgreeInfo(userId);
 
-            if (agreementLocation == null) {
-                throw new NotFoundException("agreementLocation", "List");
-            }
-
-            latitude = (double) agreementLocation.get(0);
-            longitude = (double) agreementLocation.get(1);
-            myplace = (String) agreementLocation.get(2);
+            latitude =  NoAgreeUserGeoInfo.getLatitude();
+            longitude = NoAgreeUserGeoInfo.getLongitude();
+            myplace = NoAgreeUserGeoInfo.getPlaceName();
         } else {
             myplace = geoService.getRegionInfo(latitude, longitude, userId);
         }

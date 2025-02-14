@@ -3,6 +3,9 @@ import com.daengdaeng_eodiga.project.Global.Geo.dto.KakaoApiProperties;
 import com.daengdaeng_eodiga.project.Global.Geo.dto.KakaoApiResponseDto;
 import com.daengdaeng_eodiga.project.Global.Geo.dto.KakaoGeoApiDto;
 import com.daengdaeng_eodiga.project.Global.exception.UserNotFoundException;
+import com.daengdaeng_eodiga.project.Global.exception.UserNotFoundGeoAsAddress;
+import com.daengdaeng_eodiga.project.Global.exception.UserNotFoundGeoInfo;
+import com.daengdaeng_eodiga.project.place.dto.NoGeoUserInfoDto;
 import com.daengdaeng_eodiga.project.user.entity.User;
 import com.daengdaeng_eodiga.project.user.repository.UserRepository;
 import com.daengdaeng_eodiga.project.user.service.UserService;
@@ -37,22 +40,19 @@ public class GeoService {
         String url = kakaoApiProperties.getUrl() + "?x=" + longitude + "&y=" + latitude;
         ResponseEntity<KakaoGeoApiDto> response = restTemplate.exchange(url, HttpMethod.GET, entity, KakaoGeoApiDto.class);
         if (response.getBody() != null) {
-            String result = getMaps(response);
-
-            return result;
+            return getMaps(response);
         }
 
         return null;
     }
     private static String getMaps(ResponseEntity<KakaoGeoApiDto> response) {
         List<KakaoGeoApiDto.Document> addressInfoList = Objects.requireNonNull(response.getBody()).getDocuments();
-        if(addressInfoList.size()==0 || addressInfoList == null)
+        if(addressInfoList.isEmpty())
             return "";
-        String ret=addressInfoList.get(0).getAddress() != null? addressInfoList.get(0).getAddress().toString() : "";
-        return ret;
+        return addressInfoList.get(0).getAddress() != null? addressInfoList.get(0).getAddress().toString() : "";
     }
 
-    public List<Object> getNotAgreeInfo(Integer userId)  {
+    public NoGeoUserInfoDto getNotAgreeInfo(Integer userId)  {
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", kakaoApiProperties.getKey());
@@ -72,13 +72,10 @@ public class GeoService {
         try {
             apiResponseDto = objectMapper.readValue(response.getBody(), KakaoApiResponseDto.class);
             if (apiResponseDto != null && apiResponseDto.getDocuments() != null && !apiResponseDto.getDocuments().isEmpty()) {
-                List<Object> Ret = getObjects(apiResponseDto);
-                return Ret;
+                return getObjects(apiResponseDto);
             }
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
+            throw new UserNotFoundGeoAsAddress();
         }
 
 
@@ -87,15 +84,24 @@ public class GeoService {
         return null;
     }
 
-    private static List<Object> getObjects(KakaoApiResponseDto apiResponseDto) {
-        KakaoApiResponseDto.Document document = apiResponseDto.getDocuments().get(0);
-        Double latitude = Double.parseDouble(document.getY());
-        Double longitude = Double.parseDouble(document.getX());
-        String address = apiResponseDto.getDocuments().get(0).getAddress().getRegion1DepthName() + " " + apiResponseDto.getDocuments().get(0).getAddress().getRegion2DepthName();
-        List<Object> Ret = new ArrayList<>();
-        Ret.add(latitude);
-        Ret.add(longitude);
-        Ret.add(address);
+    private static NoGeoUserInfoDto getObjects(KakaoApiResponseDto apiResponseDto) {
+        NoGeoUserInfoDto Ret = new NoGeoUserInfoDto();
+        try {
+            KakaoApiResponseDto.Document document = apiResponseDto.getDocuments().get(0);
+            Double latitude = Double.parseDouble(document.getY());
+            Double longitude = Double.parseDouble(document.getX());
+            String address = apiResponseDto.getDocuments().get(0).getAddress().getRegion1DepthName() + " " +
+                    apiResponseDto.getDocuments().get(0).getAddress().getRegion2DepthName();
+            Ret.setLatitude(latitude);
+            Ret.setLongitude(longitude);
+            Ret.setPlaceName(address);
+
+        } catch (NumberFormatException e) {
+            throw new UserNotFoundGeoInfo();
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            throw new UserNotFoundGeoAsAddress();
+        }
+
         return Ret;
     }
 

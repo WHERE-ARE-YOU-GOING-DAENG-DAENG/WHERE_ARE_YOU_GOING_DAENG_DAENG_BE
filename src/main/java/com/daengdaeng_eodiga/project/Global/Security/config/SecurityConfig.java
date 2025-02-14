@@ -78,6 +78,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/v2/region/owners").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v2/story").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v2/story/detail/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/actuator/prometheus/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/metrics**").permitAll()
                 .anyRequest().authenticated())
             .addFilterBefore(new JWTFilter(jwtUtil,redisTokenRepository,userService,testMode), UsernamePasswordAuthenticationFilter.class);
 

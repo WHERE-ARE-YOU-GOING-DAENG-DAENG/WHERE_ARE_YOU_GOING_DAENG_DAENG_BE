@@ -1,5 +1,6 @@
 package com.daengdaeng_eodiga.project.place.service;
 
+import com.daengdaeng_eodiga.project.Global.Geo.Service.GeoService;
 import com.daengdaeng_eodiga.project.Global.Redis.Repository.RedisLocationRepository;
 import com.daengdaeng_eodiga.project.Global.exception.PlaceNotFoundException;
 import com.daengdaeng_eodiga.project.common.service.CommonCodeService;
@@ -47,6 +48,7 @@ public class PlaceService {
     private final CommonCodeService commonCodeService;
     private final RedisLocationRepository redisLocationRepository;
     private final PlaceMediaRepository placeMediaRepository;
+    private final GeoService geoService;
     private static final Logger logger = LoggerFactory.getLogger(PlaceService.class);
 
     public List<PlaceDto> filterPlaces(String city, String cityDetail, String placeTypeCode, Double latitude, Double longitude, Integer userId) {
@@ -185,10 +187,12 @@ public class PlaceService {
 
             double Placelatitude= place.getLatitude();
             double Placelongitude= place.getLongitude();
-            double score =calculateDistance(latitude, longitude,Placelatitude, Placelongitude);
+            double score=0;
             String place1 = place.getCity();
             String place2 = place.getCityDetail();
             String place3 = place.getTownship();
+            double dis= geoService.calculateDistance(latitude, longitude,Placelatitude, Placelongitude);
+            score+=2.0 / (1.0 + (dis) / 100.0);
             score+= calculateRegionScore(region1, region2, region3, place1, place2, place3);
 
             score+= place.getScore() / 10.0;
@@ -231,17 +235,6 @@ public class PlaceService {
             return m.group(1);
         }
         return null;
-    }
-    private double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
-        final int R = 6371;
-        double latDistance = Math.toRadians(lat2 - lat1);
-        double lonDistance = Math.toRadians(lon2 - lon1);
-        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
-                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
-                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double maxDistance=100.0;
-        return 5.0 / (1.0 + (R * c) / maxDistance);
     }
     private double calculateRegionScore(String region1, String region2, String region3, String place1, String place2, String place3) {
         double score = 0;
