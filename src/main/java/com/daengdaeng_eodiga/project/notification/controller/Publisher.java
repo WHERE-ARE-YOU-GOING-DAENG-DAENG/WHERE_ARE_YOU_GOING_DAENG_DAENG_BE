@@ -20,7 +20,7 @@ public class Publisher {
 	private final RedisTemplate<String, String> redisTemplate;
 
 	@Autowired
-	public Publisher(@Qualifier(value = "redisTemplate")RedisTemplate<String, String> redisTemplate) {
+	public Publisher(@Qualifier(value = "redisTemplateOfString")RedisTemplate<String, String> redisTemplate) {
 		this.redisTemplate = redisTemplate;
 	}
 

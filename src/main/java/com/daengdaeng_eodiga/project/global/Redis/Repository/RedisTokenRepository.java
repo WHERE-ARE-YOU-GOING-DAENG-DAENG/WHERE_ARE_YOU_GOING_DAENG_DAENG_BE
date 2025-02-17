@@ -13,7 +13,7 @@ public class RedisTokenRepository {
     public final  JWTUtil jwtUtil;
 
     @Autowired
-    public RedisTokenRepository(@Qualifier(value = "redisTemplate")RedisTemplate<String, String> redisTemplate, JWTUtil jwtUtil) {
+    public RedisTokenRepository(@Qualifier(value = "redisTemplateOfString")RedisTemplate<String, String> redisTemplate, JWTUtil jwtUtil) {
         this.redisTemplate = redisTemplate;
         this.jwtUtil = jwtUtil;
     }
