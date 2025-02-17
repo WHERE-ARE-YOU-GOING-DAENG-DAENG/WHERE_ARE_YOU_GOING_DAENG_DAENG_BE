@@ -1,19 +1,15 @@
 package com.daengdaeng_eodiga.project.oauth.service;
 
 
-import com.daengdaeng_eodiga.project.Global.Redis.Repository.RedisTokenRepository;
-import com.daengdaeng_eodiga.project.Global.Security.config.JWTUtil;
-import com.daengdaeng_eodiga.project.Global.dto.ApiResponse;
-import com.daengdaeng_eodiga.project.Global.exception.UserFailedDelCookie;
+import com.daengdaeng_eodiga.project.global.Redis.Repository.RedisTokenRepository;
+import com.daengdaeng_eodiga.project.global.Security.config.JWTUtil;
+import com.daengdaeng_eodiga.project.global.exception.UserFailedDelCookie;
 import com.daengdaeng_eodiga.project.oauth.OauthProvider;
-import com.daengdaeng_eodiga.project.oauth.OauthResult;
-import com.daengdaeng_eodiga.project.oauth.dto.OauthResponse;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseCookie;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Slf4j

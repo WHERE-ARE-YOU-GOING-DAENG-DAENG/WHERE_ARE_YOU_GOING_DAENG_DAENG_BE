@@ -1,6 +1,6 @@
 package com.daengdaeng_eodiga.project.notification.entity;
 
-import com.daengdaeng_eodiga.project.Global.entity.BaseEntity;
+import com.daengdaeng_eodiga.project.global.entity.BaseEntity;
 import com.daengdaeng_eodiga.project.user.entity.User;
 
 import jakarta.persistence.Column;
@@ -14,7 +14,6 @@ import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Getter

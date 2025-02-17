@@ -1,6 +1,6 @@
 package com.daengdaeng_eodiga.project.place.entity;
 
-import com.daengdaeng_eodiga.project.Global.entity.BaseEntity;
+import com.daengdaeng_eodiga.project.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

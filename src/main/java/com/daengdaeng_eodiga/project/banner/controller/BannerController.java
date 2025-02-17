@@ -1,6 +1,6 @@
 package com.daengdaeng_eodiga.project.banner.controller;
 
-import com.daengdaeng_eodiga.project.Global.dto.ApiResponse;
+import com.daengdaeng_eodiga.project.global.dto.ApiResponse;
 import com.daengdaeng_eodiga.project.banner.dto.BannersDto;
 import com.daengdaeng_eodiga.project.banner.service.BannerService;
 import lombok.RequiredArgsConstructor;

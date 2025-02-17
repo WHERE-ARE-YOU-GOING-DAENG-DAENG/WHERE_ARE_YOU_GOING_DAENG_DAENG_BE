@@ -1,6 +1,6 @@
 package com.daengdaeng_eodiga.project.common.service;
 
-import com.daengdaeng_eodiga.project.Global.exception.CommonCodeNotFoundException;
+import com.daengdaeng_eodiga.project.global.exception.CommonCodeNotFoundException;
 import com.daengdaeng_eodiga.project.common.repository.CommonCodeRepository;
 import lombok.RequiredArgsConstructor;
 

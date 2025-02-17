@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.daengdaeng_eodiga.project.Global.enums.OrderType;
+import com.daengdaeng_eodiga.project.global.enums.OrderType;
 import com.daengdaeng_eodiga.project.pet.entity.QPet;
 import com.daengdaeng_eodiga.project.place.entity.QPlace;
 import com.daengdaeng_eodiga.project.review.entity.QReview;

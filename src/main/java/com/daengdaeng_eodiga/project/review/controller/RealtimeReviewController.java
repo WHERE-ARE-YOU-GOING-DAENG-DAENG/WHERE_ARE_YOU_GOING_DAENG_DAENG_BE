@@ -1,7 +1,7 @@
 package com.daengdaeng_eodiga.project.review.controller;
 
-import com.daengdaeng_eodiga.project.Global.Security.config.CustomOAuth2User;
-import com.daengdaeng_eodiga.project.Global.dto.ApiResponse;
+import com.daengdaeng_eodiga.project.global.Security.config.CustomOAuth2User;
+import com.daengdaeng_eodiga.project.global.dto.ApiResponse;
 import com.daengdaeng_eodiga.project.review.dto.RealTimeReviewRequest;
 import com.daengdaeng_eodiga.project.review.service.RealtimeReviewService;
 

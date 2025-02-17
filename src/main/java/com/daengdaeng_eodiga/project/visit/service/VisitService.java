@@ -1,7 +1,5 @@
 package com.daengdaeng_eodiga.project.visit.service;
 
-import static java.lang.Thread.*;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,10 +14,10 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.daengdaeng_eodiga.project.Global.exception.DuplicatePetException;
-import com.daengdaeng_eodiga.project.Global.exception.DuplicateVisitException;
-import com.daengdaeng_eodiga.project.Global.exception.InvalidRequestException;
-import com.daengdaeng_eodiga.project.Global.exception.NotFoundException;
+import com.daengdaeng_eodiga.project.global.exception.DuplicatePetException;
+import com.daengdaeng_eodiga.project.global.exception.DuplicateVisitException;
+import com.daengdaeng_eodiga.project.global.exception.InvalidRequestException;
+import com.daengdaeng_eodiga.project.global.exception.NotFoundException;
 import com.daengdaeng_eodiga.project.notification.controller.Publisher;
 import com.daengdaeng_eodiga.project.notification.dto.FcmRequestDto;
 import com.daengdaeng_eodiga.project.notification.entity.PushToken;

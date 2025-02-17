@@ -1,9 +1,9 @@
 package com.daengdaeng_eodiga.project.oauth.controller;
 
-import com.daengdaeng_eodiga.project.Global.Security.config.CustomOAuth2User;
-import com.daengdaeng_eodiga.project.Global.Security.config.JWTUtil;
-import com.daengdaeng_eodiga.project.Global.Redis.Repository.RedisTokenRepository;
-import com.daengdaeng_eodiga.project.Global.dto.ApiResponse;
+import com.daengdaeng_eodiga.project.global.Security.config.CustomOAuth2User;
+import com.daengdaeng_eodiga.project.global.Security.config.JWTUtil;
+import com.daengdaeng_eodiga.project.global.Redis.Repository.RedisTokenRepository;
+import com.daengdaeng_eodiga.project.global.dto.ApiResponse;
 import com.daengdaeng_eodiga.project.oauth.dto.SignUpForm;
 import com.daengdaeng_eodiga.project.oauth.dto.UserOauthDto;
 import com.daengdaeng_eodiga.project.oauth.service.OauthUserService;

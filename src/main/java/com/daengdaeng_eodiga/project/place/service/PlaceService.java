@@ -1,7 +1,7 @@
 package com.daengdaeng_eodiga.project.place.service;
 
-import com.daengdaeng_eodiga.project.Global.Redis.Repository.RedisLocationRepository;
-import com.daengdaeng_eodiga.project.Global.exception.PlaceNotFoundException;
+import com.daengdaeng_eodiga.project.global.Redis.Repository.RedisLocationRepository;
+import com.daengdaeng_eodiga.project.global.exception.PlaceNotFoundException;
 import com.daengdaeng_eodiga.project.common.service.CommonCodeService;
 import com.daengdaeng_eodiga.project.place.dto.*;
 import com.daengdaeng_eodiga.project.place.entity.Place;

@@ -1,7 +1,7 @@
 package com.daengdaeng_eodiga.project.favorite.service;
 
-import com.daengdaeng_eodiga.project.Global.enums.OpenHoursType;
-import com.daengdaeng_eodiga.project.Global.exception.*;
+import com.daengdaeng_eodiga.project.global.enums.OpenHoursType;
+import com.daengdaeng_eodiga.project.global.exception.*;
 import com.daengdaeng_eodiga.project.common.service.CommonCodeService;
 import com.daengdaeng_eodiga.project.favorite.dto.FavoriteRequestDto;
 import com.daengdaeng_eodiga.project.favorite.dto.FavoriteResponseDto;

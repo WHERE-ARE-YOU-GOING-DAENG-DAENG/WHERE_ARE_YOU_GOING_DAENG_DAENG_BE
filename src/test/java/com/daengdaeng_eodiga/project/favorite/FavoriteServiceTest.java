@@ -1,6 +1,6 @@
 package com.daengdaeng_eodiga.project.favorite;
 
-import com.daengdaeng_eodiga.project.Global.exception.*;
+import com.daengdaeng_eodiga.project.global.exception.*;
 import com.daengdaeng_eodiga.project.common.service.CommonCodeService;
 import com.daengdaeng_eodiga.project.favorite.dto.FavoriteRequestDto;
 import com.daengdaeng_eodiga.project.favorite.dto.FavoriteResponseDto;
@@ -27,7 +27,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static com.daengdaeng_eodiga.project.place.entity.QOpeningDate.openingDate;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 

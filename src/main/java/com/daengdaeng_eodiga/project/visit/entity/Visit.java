@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.daengdaeng_eodiga.project.Global.entity.BaseEntity;
+import com.daengdaeng_eodiga.project.global.entity.BaseEntity;
 import com.daengdaeng_eodiga.project.place.entity.Place;
 import com.daengdaeng_eodiga.project.user.entity.User;
 

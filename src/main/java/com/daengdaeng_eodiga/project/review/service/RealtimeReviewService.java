@@ -1,6 +1,6 @@
 package com.daengdaeng_eodiga.project.review.service;
 
-import com.daengdaeng_eodiga.project.Global.exception.RealtimeReviewException;
+import com.daengdaeng_eodiga.project.global.exception.RealtimeReviewException;
 import com.daengdaeng_eodiga.project.place.entity.Place;
 import com.daengdaeng_eodiga.project.place.service.PlaceService;
 import com.daengdaeng_eodiga.project.review.dto.RealTimeReviewRequest;

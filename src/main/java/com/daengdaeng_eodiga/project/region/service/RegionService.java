@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import com.daengdaeng_eodiga.project.Global.exception.UserLandNotFoundException;
+import com.daengdaeng_eodiga.project.global.exception.UserLandNotFoundException;
 import com.daengdaeng_eodiga.project.notification.service.NotificationService;
 import com.daengdaeng_eodiga.project.pet.dto.PetResponse;
 import com.daengdaeng_eodiga.project.region.dto.CityDetailVisit;

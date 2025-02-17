@@ -1,7 +1,7 @@
 package com.daengdaeng_eodiga.project.notification.service;
 
-import com.daengdaeng_eodiga.project.Global.exception.NotificationNotFoundException;
-import com.daengdaeng_eodiga.project.Global.exception.PushTokenIsExistsException;
+import com.daengdaeng_eodiga.project.global.exception.NotificationNotFoundException;
+import com.daengdaeng_eodiga.project.global.exception.PushTokenIsExistsException;
 import com.daengdaeng_eodiga.project.common.service.CommonCodeService;
 import com.daengdaeng_eodiga.project.notification.controller.Publisher;
 import com.daengdaeng_eodiga.project.notification.dto.FcmRequestDto;

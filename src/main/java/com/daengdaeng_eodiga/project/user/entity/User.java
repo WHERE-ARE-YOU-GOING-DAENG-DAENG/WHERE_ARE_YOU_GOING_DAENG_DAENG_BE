@@ -1,6 +1,6 @@
 package com.daengdaeng_eodiga.project.user.entity;
 
-import com.daengdaeng_eodiga.project.Global.entity.BaseEntity;
+import com.daengdaeng_eodiga.project.global.entity.BaseEntity;
 import com.daengdaeng_eodiga.project.favorite.entity.Favorite;
 import com.daengdaeng_eodiga.project.oauth.OauthProvider;
 import com.daengdaeng_eodiga.project.pet.entity.Pet;

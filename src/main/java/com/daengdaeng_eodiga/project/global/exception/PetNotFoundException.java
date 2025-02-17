@@ -1,0 +1,9 @@
+package com.daengdaeng_eodiga.project.global.exception;
+
+import com.daengdaeng_eodiga.project.global.enums.ErrorCode;
+
+public class PetNotFoundException extends BusinessException {
+	public PetNotFoundException() {
+		super(ErrorCode.PET_NOT_FOUND.getErrorCode(), ErrorCode.PET_NOT_FOUND.getMessage());
+	}
+}

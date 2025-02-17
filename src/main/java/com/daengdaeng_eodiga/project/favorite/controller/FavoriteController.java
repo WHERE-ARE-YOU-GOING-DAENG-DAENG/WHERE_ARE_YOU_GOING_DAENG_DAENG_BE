@@ -1,7 +1,7 @@
 package com.daengdaeng_eodiga.project.favorite.controller;
 
-import com.daengdaeng_eodiga.project.Global.Security.config.CustomOAuth2User;
-import com.daengdaeng_eodiga.project.Global.dto.ApiResponse;
+import com.daengdaeng_eodiga.project.global.Security.config.CustomOAuth2User;
+import com.daengdaeng_eodiga.project.global.dto.ApiResponse;
 import com.daengdaeng_eodiga.project.favorite.dto.FavoriteRequestDto;
 import com.daengdaeng_eodiga.project.favorite.dto.FavoriteResponseDto;
 import com.daengdaeng_eodiga.project.favorite.service.FavoriteService;

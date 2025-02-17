@@ -3,10 +3,8 @@ package com.daengdaeng_eodiga.project.admin.service;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -17,8 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import net.coobird.thumbnailator.Thumbnails;
 
 import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.daengdaeng_eodiga.project.Global.S3.service.S3Uploader;
-import com.daengdaeng_eodiga.project.Global.exception.NotFoundException;
+import com.daengdaeng_eodiga.project.global.S3.service.S3Uploader;
+import com.daengdaeng_eodiga.project.global.exception.NotFoundException;
 import com.daengdaeng_eodiga.project.admin.dto.PlaceRegister;
 import com.daengdaeng_eodiga.project.common.service.CommonCodeService;
 import com.daengdaeng_eodiga.project.place.entity.Place;

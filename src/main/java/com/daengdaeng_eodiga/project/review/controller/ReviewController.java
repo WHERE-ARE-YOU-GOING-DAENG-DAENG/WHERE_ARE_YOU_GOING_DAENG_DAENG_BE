@@ -1,6 +1,6 @@
 package com.daengdaeng_eodiga.project.review.controller;
 
-import com.daengdaeng_eodiga.project.Global.Security.config.CustomOAuth2User;
+import com.daengdaeng_eodiga.project.global.Security.config.CustomOAuth2User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.daengdaeng_eodiga.project.Global.dto.ApiResponse;
-import com.daengdaeng_eodiga.project.Global.enums.OrderType;
+import com.daengdaeng_eodiga.project.global.dto.ApiResponse;
+import com.daengdaeng_eodiga.project.global.enums.OrderType;
 import com.daengdaeng_eodiga.project.review.dto.ReviewDto;
 import com.daengdaeng_eodiga.project.review.dto.ReviewRegisterRequest;
 import com.daengdaeng_eodiga.project.review.dto.ReviewsResponse;

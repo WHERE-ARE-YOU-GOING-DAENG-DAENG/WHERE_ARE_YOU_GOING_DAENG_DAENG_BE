@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.daengdaeng_eodiga.project.Global.Security.config.CustomOAuth2User;
-import com.daengdaeng_eodiga.project.Global.dto.ApiResponse;
+import com.daengdaeng_eodiga.project.global.Security.config.CustomOAuth2User;
+import com.daengdaeng_eodiga.project.global.dto.ApiResponse;
 import com.daengdaeng_eodiga.project.visit.dto.PetsAtVisitTime;
 import com.daengdaeng_eodiga.project.visit.dto.VisitRequest;
 import com.daengdaeng_eodiga.project.visit.dto.VisitResponse;

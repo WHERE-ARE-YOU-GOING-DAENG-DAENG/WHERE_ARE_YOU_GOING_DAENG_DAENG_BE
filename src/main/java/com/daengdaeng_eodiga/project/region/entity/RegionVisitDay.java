@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import com.daengdaeng_eodiga.project.Global.entity.BaseEntity;
+import com.daengdaeng_eodiga.project.global.entity.BaseEntity;
 import com.daengdaeng_eodiga.project.user.entity.User;
 
 @Entity
