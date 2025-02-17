@@ -9,7 +9,7 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 
 @Configuration
 @EnableCaching
-public class CacheConfig {
+public class LocalCacheConfig {
 	@Bean(name = "commonCodeCacheManager")
 	public CaffeineCacheManager commonCodeCacheManager() {
 		CaffeineCacheManager cacheManager = new CaffeineCacheManager( "commonCode","checkCommonCodeExist");
