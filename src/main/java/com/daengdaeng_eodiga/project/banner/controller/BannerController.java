@@ -17,6 +17,14 @@ import java.util.List;
 public class BannerController {
     private final BannerService bannerService;
 
+	/**
+	 * 배너 목록 조회
+	 *
+	 * DB에서 유효한 날짜에 해당하는 행사의 배너 목록을 조회
+	 *
+	 * @author 하진서
+	 * @return List<BannersDto> : 배너 관련 정보
+	 * */    
     @GetMapping
     public ResponseEntity<ApiResponse<List<BannersDto>>> fetchBanners() {
         List<BannersDto> response = bannerService.fetchBanners();

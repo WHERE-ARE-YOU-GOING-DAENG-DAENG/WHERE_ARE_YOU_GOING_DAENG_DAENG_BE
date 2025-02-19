@@ -19,6 +19,12 @@ public class NotificationController {
 
     private final NotificationService notificationService;
 
+    /**
+     * 미확인 알림 목록 조회
+     * 
+     * @author 하진서
+     * @return List<NotiResponseDto>
+     */     
     @GetMapping
     public ResponseEntity<ApiResponse<List<NotiResponseDto>>> fetchUnreadNotifications(@AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
         int userId = customOAuth2User.getUserDTO().getUserid();
@@ -26,6 +32,12 @@ public class NotificationController {
         return ResponseEntity.ok(ApiResponse.success(response));
     }
 
+    /**
+     * 알림 읽음으로 갱신
+     * 
+     * @author 하진서
+     * @return String
+     */       
     @PutMapping("/{notificationId}")
     public ResponseEntity<ApiResponse<String>> updateNotificationAsRead(@PathVariable int notificationId) {
         notificationService.updateNotificationAsRead(notificationId);

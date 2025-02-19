@@ -38,6 +38,12 @@ public class NotificationService {
     private final PushTokenService pushTokenService;
     private final Publisher publisher;
 
+    /**
+     * 미확인 알림 목록 조회
+     * 
+     * @author 하진서
+     * @return List<NotiResponseDto>
+     */    
     public List<NotiResponseDto> fetchUnreadNotifications(int userId) {
 
         List<Notification> unreadNotifications = notificationRepository.findByUser_UserIdAndReadingFalseOrderByCreatedAtDesc(userId);
@@ -54,6 +60,12 @@ public class NotificationService {
         return notificationDtos;
     }
 
+    /**
+     * 알림 읽음으로 갱신
+     * 
+     * @author 하진서
+     * @return
+     */      
     public void updateNotificationAsRead(int notificationId) {
         Notification notification = notificationRepository.findById(notificationId)
                 .orElseThrow(NotificationNotFoundException::new);

@@ -36,6 +36,14 @@ public class FavoriteService {
     private final PlaceMediaRepository placeMediaRepository;
     private final CommonCodeService commonCodeService;
 
+	/**
+	 * 즐겨찾기 장소 등록
+	 *
+	 * 사용자가 선택한 장소를 즐겨찾기 DB에 등록
+	 *
+	 * @author 하진서
+	 * @return FavoriteResponseDto : 즐겨찾기 장소 관련 정보
+	 * */    
     public FavoriteResponseDto registerFavorite(int userId, FavoriteRequestDto favoriteRequestDto) {
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         int placeId = favoriteRequestDto.getPlaceId();
@@ -57,6 +65,14 @@ public class FavoriteService {
         return makeRegisterFavoriteDto(place, placeImage, favorite);
     }
 
+	/**
+	 * 즐겨찾기 장소 삭제
+	 *
+	 * 즐겨찾기 DB에서 해당 장소 삭제
+	 *
+	 * @author 하진서
+	 * @return 
+	 * */     
     public void deleteFavorite(int favoriteId) {
         if (!favoriteRepository.existsById(favoriteId)) {
             throw new FavoriteNotFoundException();
@@ -69,9 +85,10 @@ public class FavoriteService {
     }
 
     /**
-     * 즐겨찾기 조회 시, 응답 DTO 생성 메소드
-     * @param favorites
-     * @return FavoriteResponseDto
+     * 즐겨찾기 목록 조회
+     * 
+     * @author 하진서
+     * @return List<FavoriteResponseDto>
      */
     private List<FavoriteResponseDto> makeFetchFavoriteDto(List<Tuple> favorites) {
         return favorites.stream().map(favorite -> {
@@ -101,9 +118,9 @@ public class FavoriteService {
     }
 
     /**
-     * 즐겨찾기 등록 시, 응답 dto 생성 메소드
-     * @param place
-     * @param favorite
+     * 즐겨찾기 등록에 필요한 dto 생성
+     * 
+     * @author 하진서
      * @return FavoriteResponseDto
      */
     private FavoriteResponseDto makeRegisterFavoriteDto(Place place, String placeImage, Favorite favorite) {
