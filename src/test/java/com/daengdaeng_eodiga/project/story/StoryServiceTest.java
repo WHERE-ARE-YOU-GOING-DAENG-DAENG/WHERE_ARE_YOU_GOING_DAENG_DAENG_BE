@@ -1,7 +1,7 @@
 package com.daengdaeng_eodiga.project.story;
 
-import com.daengdaeng_eodiga.project.Global.Redis.Repository.RedisStoryRepository;
-import com.daengdaeng_eodiga.project.Global.exception.*;
+import com.daengdaeng_eodiga.project.global.Redis.Repository.RedisStoryRepository;
+import com.daengdaeng_eodiga.project.global.exception.*;
 import com.daengdaeng_eodiga.project.pet.entity.Pet;
 import com.daengdaeng_eodiga.project.pet.repository.PetRepository;
 import com.daengdaeng_eodiga.project.region.entity.RegionOwnerLog;

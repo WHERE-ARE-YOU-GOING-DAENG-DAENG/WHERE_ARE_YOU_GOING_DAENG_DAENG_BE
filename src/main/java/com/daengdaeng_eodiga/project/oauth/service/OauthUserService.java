@@ -2,9 +2,9 @@ package com.daengdaeng_eodiga.project.oauth.service;
 
 import java.time.LocalDateTime;
 
-import com.daengdaeng_eodiga.project.Global.Security.config.JWTUtil;
-import com.daengdaeng_eodiga.project.Global.exception.DuplicateUserException;
-import com.daengdaeng_eodiga.project.Global.exception.UserNotFoundException;
+import com.daengdaeng_eodiga.project.global.Security.config.JWTUtil;
+import com.daengdaeng_eodiga.project.global.exception.DuplicateUserException;
+import com.daengdaeng_eodiga.project.global.exception.UserNotFoundException;
 import com.daengdaeng_eodiga.project.common.service.CommonCodeService;
 import com.daengdaeng_eodiga.project.notification.service.NotificationService;
 import com.daengdaeng_eodiga.project.oauth.OauthProvider;

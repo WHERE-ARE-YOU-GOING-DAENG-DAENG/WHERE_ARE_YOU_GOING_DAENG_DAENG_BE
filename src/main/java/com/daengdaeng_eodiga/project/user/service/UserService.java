@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.daengdaeng_eodiga.project.Global.exception.UserNotFoundException;
+import com.daengdaeng_eodiga.project.global.exception.UserNotFoundException;
 import com.daengdaeng_eodiga.project.oauth.OauthProvider;
 import com.daengdaeng_eodiga.project.user.dto.UserPets;
 import com.daengdaeng_eodiga.project.user.entity.User;

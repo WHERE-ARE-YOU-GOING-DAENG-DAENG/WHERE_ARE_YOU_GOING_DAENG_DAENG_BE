@@ -1,7 +1,7 @@
 package com.daengdaeng_eodiga.project.notification.service;
 
-import com.daengdaeng_eodiga.project.Global.exception.NotificationNotFoundException;
-import com.daengdaeng_eodiga.project.Global.exception.PushTokenIsExistsException;
+import com.daengdaeng_eodiga.project.global.exception.NotificationNotFoundException;
+import com.daengdaeng_eodiga.project.global.exception.PushTokenIsExistsException;
 import com.daengdaeng_eodiga.project.common.service.CommonCodeService;
 import com.daengdaeng_eodiga.project.notification.controller.Publisher;
 import com.daengdaeng_eodiga.project.notification.dto.FcmRequestDto;
@@ -38,6 +38,12 @@ public class NotificationService {
     private final PushTokenService pushTokenService;
     private final Publisher publisher;
 
+    /**
+     * 미확인 알림 목록 조회
+     * 
+     * @author 하진서
+     * @return List<NotiResponseDto>
+     */    
     public List<NotiResponseDto> fetchUnreadNotifications(int userId) {
 
         List<Notification> unreadNotifications = notificationRepository.findByUser_UserIdAndReadingFalseOrderByCreatedAtDesc(userId);
@@ -54,6 +60,12 @@ public class NotificationService {
         return notificationDtos;
     }
 
+    /**
+     * 알림 읽음으로 갱신
+     * 
+     * @author 하진서
+     * @return
+     */      
     public void updateNotificationAsRead(int notificationId) {
         Notification notification = notificationRepository.findById(notificationId)
                 .orElseThrow(NotificationNotFoundException::new);

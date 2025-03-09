@@ -1,5 +1,5 @@
 package com.daengdaeng_eodiga.project.pet.entity;
-import com.daengdaeng_eodiga.project.Global.entity.BaseEntity;
+import com.daengdaeng_eodiga.project.global.entity.BaseEntity;
 import com.daengdaeng_eodiga.project.review.entity.ReviewPet;
 import com.daengdaeng_eodiga.project.user.entity.User;
 import com.daengdaeng_eodiga.project.visit.entity.VisitPet;

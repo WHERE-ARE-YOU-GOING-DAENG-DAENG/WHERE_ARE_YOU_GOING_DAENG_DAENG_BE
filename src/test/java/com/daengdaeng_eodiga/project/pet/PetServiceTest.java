@@ -1,6 +1,6 @@
 package com.daengdaeng_eodiga.project.pet;
 
-import com.daengdaeng_eodiga.project.Global.exception.*;
+import com.daengdaeng_eodiga.project.global.exception.*;
 import com.daengdaeng_eodiga.project.common.service.CommonCodeService;
 import com.daengdaeng_eodiga.project.pet.dto.PetListResponseDto;
 import com.daengdaeng_eodiga.project.pet.dto.PetRegisterDto;

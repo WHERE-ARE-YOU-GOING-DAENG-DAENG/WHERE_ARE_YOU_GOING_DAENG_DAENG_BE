@@ -1,13 +1,12 @@
 package com.daengdaeng_eodiga.project.place.controller;
 
-import com.daengdaeng_eodiga.project.Global.Geo.Service.GeoService;
-import com.daengdaeng_eodiga.project.Global.Redis.Dto.RedisPlaceDto;
-import com.daengdaeng_eodiga.project.Global.Redis.Repository.RedisLocationRepository;
-import com.daengdaeng_eodiga.project.Global.Redis.Repository.RedisTokenRepository;
-import com.daengdaeng_eodiga.project.Global.Security.config.CustomOAuth2User;
-import com.daengdaeng_eodiga.project.Global.dto.ApiResponse;
-import com.daengdaeng_eodiga.project.Global.exception.NotFoundException;
-import com.daengdaeng_eodiga.project.Global.exception.UserNotFoundException;
+import com.daengdaeng_eodiga.project.global.Geo.Service.GeoService;
+import com.daengdaeng_eodiga.project.global.Redis.Dto.RedisPlaceDto;
+import com.daengdaeng_eodiga.project.global.Redis.Repository.RedisLocationRepository;
+import com.daengdaeng_eodiga.project.global.Security.config.CustomOAuth2User;
+import com.daengdaeng_eodiga.project.global.dto.ApiResponse;
+import com.daengdaeng_eodiga.project.global.exception.NotFoundException;
+import com.daengdaeng_eodiga.project.global.exception.UserNotFoundException;
 import com.daengdaeng_eodiga.project.place.dto.*;
 import com.daengdaeng_eodiga.project.place.entity.ReviewSummary;
 import com.daengdaeng_eodiga.project.place.service.OpenAiService;
@@ -16,15 +15,13 @@ import com.daengdaeng_eodiga.project.place.service.PlaceService;
 import com.daengdaeng_eodiga.project.review.repository.ReviewSummaryRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.RedisTemplate;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor

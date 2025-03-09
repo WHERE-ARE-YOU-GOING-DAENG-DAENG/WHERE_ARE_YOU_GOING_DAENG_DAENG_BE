@@ -1,7 +1,5 @@
 package com.daengdaeng_eodiga.project.review.service;
 
-import static com.daengdaeng_eodiga.project.Global.enums.ErrorCode.*;
-
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,9 +17,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.daengdaeng_eodiga.project.Global.enums.OrderType;
-import com.daengdaeng_eodiga.project.Global.exception.DuplicateReviewException;
-import com.daengdaeng_eodiga.project.Global.exception.PlaceNotFoundException;
+import com.daengdaeng_eodiga.project.global.enums.OrderType;
+import com.daengdaeng_eodiga.project.global.exception.DuplicateReviewException;
+import com.daengdaeng_eodiga.project.global.exception.PlaceNotFoundException;
 import com.daengdaeng_eodiga.project.common.service.CommonCodeService;
 import com.daengdaeng_eodiga.project.pet.entity.Pet;
 import com.daengdaeng_eodiga.project.pet.service.PetService;

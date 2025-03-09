@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.daengdaeng_eodiga.project.Global.exception.*;
+import com.daengdaeng_eodiga.project.global.exception.*;
 import com.daengdaeng_eodiga.project.common.service.CommonCodeService;
 import com.daengdaeng_eodiga.project.pet.dto.PetDetailResponseDto;
 import com.daengdaeng_eodiga.project.pet.dto.PetListResponseDto;
@@ -32,12 +32,6 @@ public class PetService {
 	private final UserRepository userRepository;
 	private final CommonCodeService commonCodeService;
 
-	/**
-	 * 반려동물 조회 메소드.
-	 * List<Pet>타입을 반환
-	 * @param user
-	 * @return Pet
-	 */
 	public List<Pet> fetchUserPets(User user) {
 		return petRepository.findAllByUser(user);
 	}
@@ -61,6 +55,14 @@ public class PetService {
 		return confirmPets;
 	}
 
+    /**
+     * 반려동물 등록
+	 * 
+	 * 반려동물의 이름,이미지,종,성별,크기,생년월일,중성화여부를 등록
+     * 
+     * @author 하진서
+     * @return
+     */	
 	public void registerPet(int userId, PetRegisterDto requestDto) {
 		User user = userRepository.findById(userId)
 				.orElseThrow(UserNotFoundException::new);
@@ -81,6 +83,14 @@ public class PetService {
 		petRepository.save(pet);
 	}
 
+    /**
+     * 반려동물 정보 수정
+	 * 
+	 * 반려동물의 이름,이미지,종,성별,크기,생년월일,중성화여부를 수정
+     * 
+     * @author 하진서
+     * @return
+     */		
 	public void updatePet(int petId, PetUpdateDto updateDto) {
 		Pet pet = petRepository.findById(petId)
 				.orElseThrow(PetNotFoundException::new);
@@ -98,11 +108,14 @@ public class PetService {
 		petRepository.save(pet);
 	}
 
-	/**
-	 * 유저페이지에서의 반려동물 목록 조회 메소드.
-	 * @param userId
-	 * @return PetListResponseDto
-	 */
+    /**
+     * 반려동물 목록 조회.
+	 * 
+	 * 유저 페이지에 표시할 반려동물의 목록 조회
+     * 
+     * @author 하진서
+     * @return List<PetListResponseDto>
+     */   
 	public List<PetListResponseDto> fetchUserPetListDto(int userId) {
 		User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
@@ -120,8 +133,16 @@ public class PetService {
 				.collect(Collectors.toList());
 	}
 
+    /**
+     * 반려동물 상세정보 조회.
+	 * 
+	 * 유저 페이지에 표시할 반려동물의 상세정보 조회.
+	 * 반려동물의 ID,이름,이미지,종,성별,크기,생년월일,중성화여부가 포함
+     * 
+     * @author 하진서
+     * @return PetDetailResponseDto
+     */  	
 	public PetDetailResponseDto fetchPetDetail(int petId) {
-
 		Pet pet = petRepository.findById(petId)
 				.orElseThrow(PetNotFoundException::new);
 
@@ -141,8 +162,15 @@ public class PetService {
 				.build();
 	}
 
+    /**
+     * 반려동물 정보 삭제.
+	 * 
+	 * 반려동물 DB에서 해당 반려동물 삭제
+     * 
+     * @author 하진서
+     * @return
+     */	
 	public void deletePet(int userId, int petId) {
-
 		User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 		Pet pet = petRepository.findById(petId).orElseThrow(PetNotFoundException::new);
 		if (!pet.getUser().equals(user)) { throw new UserUnauthorizedException();}
@@ -150,12 +178,12 @@ public class PetService {
 		petRepository.delete(pet);
 	}
 
-
-
 	/**
-	 * 날짜 변환 메소드
-	 * String 타입의 date를 Date 타입으로 변경
-	 * @param date
+	 * 날짜 타입 변환.
+	 * 
+	 * String 타입의 날짜를 Date 타입으로 변경
+	 * 
+	 * @author 하진서
 	 * @return Date
 	 */
 	private Date parseDate(String date) {

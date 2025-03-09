@@ -1,8 +1,8 @@
 package com.daengdaeng_eodiga.project.preference.service;
 
-import com.daengdaeng_eodiga.project.Global.exception.CommonCodeNotFoundException;
-import com.daengdaeng_eodiga.project.Global.exception.DuplicatePreferenceException;
-import com.daengdaeng_eodiga.project.Global.exception.GroupCodeNotFoundException;
+import com.daengdaeng_eodiga.project.global.exception.CommonCodeNotFoundException;
+import com.daengdaeng_eodiga.project.global.exception.DuplicatePreferenceException;
+import com.daengdaeng_eodiga.project.global.exception.GroupCodeNotFoundException;
 import com.daengdaeng_eodiga.project.common.entity.CommonCode;
 import com.daengdaeng_eodiga.project.common.entity.GroupCode;
 import com.daengdaeng_eodiga.project.common.repository.CommonCodeRepository;
@@ -32,6 +32,14 @@ public class PreferenceService {
     private final CommonCodeRepository commonCodeRepository;
     private final GroupCodeRepository groupCodeRepository;
 
+    /**
+     * 선호도 등록.
+	 * 
+	 * 입력받은 선호장소타입, 선호장소특징을 선호도 DB에 저장
+     * 
+     * @author 하진서
+     * @return PreferenceResponseDto
+     */	    
     public PreferenceResponseDto registerPreference(int userId, PreferenceRequestDto preferenceRequestDto) {
         User user = userService.findUser(userId);
         if( !preferenceRepository.findByUser_UserIdAndPreferenceType(userId, preferenceRequestDto.getPreferenceInfo()).isEmpty() ) {
@@ -50,6 +58,14 @@ public class PreferenceService {
         return mapToDto(preferenceRequestDto.getPreferenceInfo(), preferences);
     }
 
+    /**
+     * 선호도 수정.
+	 * 
+	 * 수정된 선호장소타입, 선호장소특징을 선호도 DB에 갱신
+     * 
+     * @author 하진서
+     * @return PreferenceResponseDto
+     */    
     public PreferenceResponseDto updatePreference(int userId, PreferenceRequestDto preferenceRequestDto) {
         User user = userService.findUser(userId);
 
@@ -66,6 +82,14 @@ public class PreferenceService {
         return mapToDto(preferenceRequestDto.getPreferenceInfo(), preferences);
     }
 
+    /**
+     * 선호도 목록 조회.
+	 * 
+	 * 선호장소타입, 선호장소특징 목록 조회
+     * 
+     * @author 하진서
+     * @return List<PreferenceResponseDto>
+     */     
     public List<PreferenceResponseDto> fetchPreferences(int userId) {
         User user = userService.findUser(userId);
         List<Preference> preferences = preferenceRepository.findByUser(user);
@@ -85,8 +109,8 @@ public class PreferenceService {
 
     /**
      * 공통코드 조회 메소드
-     * @param groupId
-     * @param commonIds
+     * 
+     * @author 하진서
      * @return List<CommonCode>
      */
     private List<CommonCode> findCommonCode(String groupId, Set<String> commonIds) {
@@ -98,7 +122,8 @@ public class PreferenceService {
     }
     /**
      * 그룹코드 이름 조회 메소드
-     * @param groupId
+     * 
+     * @author 하진서
      * @return String
      */
     private String findGroupName(String groupId) {
@@ -108,7 +133,8 @@ public class PreferenceService {
     }
     /**
      * 공통코드 이름 조회 메소드
-     * @param codeId
+     * 
+     * @author 하진서
      * @return String
      */
     private String findCommonCodeName(String codeId) {
@@ -118,9 +144,8 @@ public class PreferenceService {
     }
     /**
      * 선호도 객체 생성 메소드
-     * @param commonCodes
-     * @param hardcodedUserId
-     * @param user
+     * 
+     * @author 하진서
      * @return Set<Preference>
      */
     private Set<Preference> createPreferences(List<CommonCode> commonCodes, int hardcodedUserId, User user) {
@@ -138,8 +163,8 @@ public class PreferenceService {
     }
     /**
      * 엔티티를 Dto로 변환하는 메소드
-     * @param preferenceInfo
-     * @param preferences
+     * 
+     * @author 하진서
      * @return PreferenceResponseDto
      */
     private PreferenceResponseDto mapToDto(String preferenceInfo, Set<Preference> preferences) {

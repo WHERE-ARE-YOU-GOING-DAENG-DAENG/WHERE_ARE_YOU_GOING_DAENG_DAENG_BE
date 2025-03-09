@@ -1,7 +1,7 @@
 package com.daengdaeng_eodiga.project.favorite.controller;
 
-import com.daengdaeng_eodiga.project.Global.Security.config.CustomOAuth2User;
-import com.daengdaeng_eodiga.project.Global.dto.ApiResponse;
+import com.daengdaeng_eodiga.project.global.Security.config.CustomOAuth2User;
+import com.daengdaeng_eodiga.project.global.dto.ApiResponse;
 import com.daengdaeng_eodiga.project.favorite.dto.FavoriteRequestDto;
 import com.daengdaeng_eodiga.project.favorite.dto.FavoriteResponseDto;
 import com.daengdaeng_eodiga.project.favorite.service.FavoriteService;
@@ -25,6 +25,14 @@ public class FavoriteController {
 
     private final FavoriteService favoriteService;
 
+	/**
+	 * 즐겨찾기 장소 등록
+	 *
+	 * 사용자가 선택한 장소를 즐겨찾기 DB에 등록
+	 *
+	 * @author 하진서
+	 * @return FavoriteResponseDto : 즐겨찾기 장소 관련 정보
+	 * */     
     @PostMapping
     public ResponseEntity<ApiResponse<FavoriteResponseDto>> registerFavorite(
             @AuthenticationPrincipal CustomOAuth2User customOAuth2User,
@@ -34,6 +42,14 @@ public class FavoriteController {
         return ResponseEntity.ok(ApiResponse.success(response));
     }
 
+	/**
+	 * 즐겨찾기 장소 삭제
+	 *
+	 * 즐겨찾기 DB에서 해당 장소 삭제
+	 *
+	 * @author 하진서
+	 * @return String
+	 * */      
     @DeleteMapping("/{favoriteId}")
     public ResponseEntity<ApiResponse<String>> deleteFavorite(
             @PathVariable @Min(value = 1, message = "Favorite ID는 1 이상이어야 합니다.") Integer favoriteId) {
@@ -41,6 +57,12 @@ public class FavoriteController {
         return ResponseEntity.ok(ApiResponse.success("favorite deleted succesfully"));
     }
 
+    /**
+     * 즐겨찾기 목록 조회
+     * 
+     * @author 하진서
+     * @return List<FavoriteResponseDto>
+     */    
     @GetMapping
     public ResponseEntity<ApiResponse<List<FavoriteResponseDto>>> fetchFavoriteList(
             @AuthenticationPrincipal CustomOAuth2User customOAuth2User,

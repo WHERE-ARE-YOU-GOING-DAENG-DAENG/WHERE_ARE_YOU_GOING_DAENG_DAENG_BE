@@ -1,6 +1,6 @@
 package com.daengdaeng_eodiga.project.notification.entity;
 
-import com.daengdaeng_eodiga.project.Global.entity.BaseEntity;
+import com.daengdaeng_eodiga.project.global.entity.BaseEntity;
 import com.daengdaeng_eodiga.project.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;

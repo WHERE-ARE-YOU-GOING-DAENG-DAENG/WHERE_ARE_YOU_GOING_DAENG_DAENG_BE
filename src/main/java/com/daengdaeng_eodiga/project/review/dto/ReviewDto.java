@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.daengdaeng_eodiga.project.Global.exception.InvalidRequestException;
+import com.daengdaeng_eodiga.project.global.exception.InvalidRequestException;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

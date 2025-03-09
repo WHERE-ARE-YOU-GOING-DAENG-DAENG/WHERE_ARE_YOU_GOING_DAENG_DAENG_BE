@@ -1,7 +1,7 @@
 package com.daengdaeng_eodiga.project.preference;
 
-import com.daengdaeng_eodiga.project.Global.exception.CommonCodeNotFoundException;
-import com.daengdaeng_eodiga.project.Global.exception.DuplicatePreferenceException;
+import com.daengdaeng_eodiga.project.global.exception.CommonCodeNotFoundException;
+import com.daengdaeng_eodiga.project.global.exception.DuplicatePreferenceException;
 import com.daengdaeng_eodiga.project.common.entity.CommonCode;
 import com.daengdaeng_eodiga.project.common.entity.GroupCode;
 import com.daengdaeng_eodiga.project.common.repository.CommonCodeRepository;

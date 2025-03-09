@@ -1,7 +1,7 @@
 package com.daengdaeng_eodiga.project.story.service;
 
-import com.daengdaeng_eodiga.project.Global.Redis.Repository.RedisStoryRepository;
-import com.daengdaeng_eodiga.project.Global.exception.*;
+import com.daengdaeng_eodiga.project.global.Redis.Repository.RedisStoryRepository;
+import com.daengdaeng_eodiga.project.global.exception.*;
 import com.daengdaeng_eodiga.project.pet.entity.Pet;
 import com.daengdaeng_eodiga.project.pet.repository.PetRepository;
 import com.daengdaeng_eodiga.project.region.repository.RegionOwnerLogRepository;
@@ -37,10 +37,13 @@ public class StoryService {
     private final RedisStoryRepository redisStoryRepository;
 
     /**
-     * 스토리 업로드
-     * @param userId
-     * @param storyRequestDto
-     */
+     * 스토리 업로드.
+     * 
+     * 땅 정보, 미디어 경로가 포함
+     * 
+     * @author 하진서
+     * @return
+     */  
     public void registerStory(int userId, StoryRequestDto storyRequestDto){
         if( storyRepository.countByTodayCreated(
                 userId,
@@ -84,9 +87,10 @@ public class StoryService {
     }
 
     /**
-     * 본인 제외 전체 유저 스토리 목록 조회
-     * @param userId
-     * @return
+     * 본인 제외한 전체 유저 스토리 목록 조회
+     * 
+     * @author 하진서
+     * @return List<GroupedUserStoriesDto>
      */
     public List<GroupedUserStoriesDto> fetchGroupedUserStories(int userId){
         List<Object[]> results = storyRepository.findMainPriorityStories(userId);
@@ -105,8 +109,9 @@ public class StoryService {
 
     /**
      * 비회원 전용 전체 유저 스토리 목록 조회
-     * @param
-     * @return
+     * 
+     * @author 하진서
+     * @return List<RedisGroupedUserStoriesDto>
      */
     public List<RedisGroupedUserStoriesDto> fetchGroupedUserStoriesForNotUser(){
         List<RedisGroupedUserStoriesDto> cachedStories = redisStoryRepository.getAllStories();
@@ -158,8 +163,9 @@ public class StoryService {
 
     /**
      * 내 스토리 목록 조회
-     * @param userId
-     * @return
+     * 
+     * @author 하진서
+     * @return MyStoriesDto
      */
     public MyStoriesDto fetchMyStories(int userId) {
         List<Object[]> results = storyRepository.findMyActiveStoriesByUserId(userId);
@@ -185,10 +191,9 @@ public class StoryService {
 
     /**
      * 유저별 스토리 상세목록 조회
-     * @param landOwnerId
-     * @param city
-     * @param cityDetail
-     * @return
+     * 
+     * @author 하진서
+     * @return IndividualUserStoriesDto
      */
     public IndividualUserStoriesDto fetchIndividualUserStories(int landOwnerId, String city, String cityDetail){
         List<Object[]> results = storyRepository.findActiveStoriesByLandOwnerId(landOwnerId, city, cityDetail);
@@ -214,8 +219,9 @@ public class StoryService {
 
     /**
      * 스토리 확인
-     * @param storyId
-     * @param userId
+     * 
+     * @author 하진서
+     * @return
      */
     public void viewStory(int storyId, int userId){
         StoryViewId storyViewId = StoryViewId.builder()
@@ -239,7 +245,9 @@ public class StoryService {
 
     /**
      * 스토리 삭제
-     * @param storyId
+     * 
+     * @author 하진서
+     * @return
      */
     public void deleteStory(int storyId){
         Story story = storyRepository.findByStoryId(storyId).orElseThrow(UserStoryNotFoundException::new);
