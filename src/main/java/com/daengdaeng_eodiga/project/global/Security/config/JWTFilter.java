@@ -35,7 +35,18 @@ public class JWTFilter extends OncePerRequestFilter {
         this.testMode = testMode;
     }
 
-
+    /**
+     * JWT 필터를 구현한 메소드로, 요청에 포함된 JWT 토큰을 확인하고 유효성을 검증합니다.
+     * @author 김승환
+     * - Access Token이 유효한지 확인하고, 만약 만료되었으면 Refresh Token을 검증하여 새로운 Access Token을 발급합니다.
+     * - 토큰이 유효한 경우, 사용자 정보를 {@link Authentication} 객체에 설정하여 인증을 수행합니다.
+     * - testMode가 true일 경우 용이한 테스트를 위해 고정된 유저의 정보가 jwt토큰에 담깁니다.
+     * @param request HTTP 요청 객체
+     * @param response HTTP 응답 객체
+     * @param filterChain 필터 체인 객체
+     * @throws ServletException 서블릿 관련 예외
+     * @throws IOException 입출력 예외
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         log.info("doFilterInternal - JWTFilter : " + request.getRequestURI()+ " "+request.getMethod()+" cookies : "+request.getCookies());
