@@ -35,8 +35,6 @@ import java.util.Map;
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class OuathController {
-    //TODO : Map 대신 ResponseDto로  타입 변경 변경
-
 
     private final OauthUserService oauthUserService;
     private final TokenService tokenService;
@@ -109,7 +107,7 @@ public class OuathController {
         response.put("user", userDto);
         return ResponseEntity.ok(ApiResponse.success(response));
     }
-    // TODO 프론트 유저 푸쉬 변경 완료되면 추가해 줘야 함
+
     @PutMapping("/user/adjust")
     public ResponseEntity<ApiResponse<?>> AdjustUser(@AuthenticationPrincipal CustomOAuth2User principal ,
                                                      @Valid @RequestBody SignUpForm signUpForm, HttpServletResponse response) {

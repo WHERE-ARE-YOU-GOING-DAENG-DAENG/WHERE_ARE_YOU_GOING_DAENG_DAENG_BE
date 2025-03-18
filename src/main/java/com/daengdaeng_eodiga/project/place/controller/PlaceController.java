@@ -109,7 +109,12 @@ public class PlaceController {
         return ResponseEntity.ok(ApiResponse.success(places));
     }
 
-
+    /**
+     * @author 김승환
+     * @param customOAuth2User 현재 인증된 사용자의 정보. {@link CustomOAuth2User}에서 사용자 정보를 가져옵니다.
+     * @param request 사용자로부터 받은 위치 요청 정보. {@link NearestRequest} 위도(latitude)와 경도(longitude)
+     * @return 장소 정보
+     */
     @PostMapping("/recommend")
     public ResponseEntity<ApiResponse<List<PlaceWithScore>>> recommendPlaces(
              @AuthenticationPrincipal CustomOAuth2User customOAuth2User,

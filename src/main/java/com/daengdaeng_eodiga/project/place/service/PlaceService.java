@@ -2,6 +2,7 @@ package com.daengdaeng_eodiga.project.place.service;
 
 import com.daengdaeng_eodiga.project.global.Geo.Service.GeoService;
 import com.daengdaeng_eodiga.project.global.Redis.Repository.RedisLocationRepository;
+import com.daengdaeng_eodiga.project.global.Security.config.CustomOAuth2User;
 import com.daengdaeng_eodiga.project.global.exception.PlaceNotFoundException;
 import com.daengdaeng_eodiga.project.common.service.CommonCodeService;
 import com.daengdaeng_eodiga.project.place.dto.*;
@@ -137,7 +138,13 @@ public class PlaceService {
                 .toList();
     }
 
-
+    /**
+     * @author 김승환
+     * @param  MyPlace 카카오 api로 변환해온 현재 유저의 도로명 주소
+     * @param latitude 위도
+     * @param longitude 경도
+     * @return  가중치로 계산된 순서의 장소 정보
+     */
     public List<PlaceWithScore> RecommendPlaces(String MyPlace,double latitude, double longitude,Integer userId) {
         List<PlaceWithScore> placeArr = new ArrayList<>();
         List<UserRequsetPrefernceDto> UserPerferenceDto =preferenceRepository.findPreferenceTypesByUserId(userId);
