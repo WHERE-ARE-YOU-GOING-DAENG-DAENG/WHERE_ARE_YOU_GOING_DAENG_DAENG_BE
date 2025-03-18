@@ -23,7 +23,19 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
     private final OuathController ouathController;
     @Value("${frontend.url}")
     private String frontUrl;
-
+    /**
+     * 인증 실패 시 호출되는 메소드.
+     * @ author 김승환
+     * - 인증 실패 메시지를 기반으로 이메일과 제공자를 추출하고, 적절한 처리(회원가입 페이지 리디렉션, 삭제된 사용자 페이지 리디렉션, 또는 오류 페이지 리디렉션)를 수행합니다.
+     * - 오류 메시지가 "REDIRECT_TO_SIGNUP"인 경우, 사용자에게 회원가입 페이지를 보여주고, "DELETED_USER"인 경우 삭제된 사용자 페이지로 리디렉션합니다.
+     * - 그 외의 경우에는 기본적으로 로그인 페이지로 리디렉션됩니다.
+     *
+     * @param request HttpServletRequest 객체
+     * @param response HttpServletResponse 객체
+     * @param exception 인증 실패 시 발생한 예외 객체
+     * @throws IOException 입출력 오류가 발생한 경우 예외를 던짐
+     * @throws ServletException 서블릿 관련 예외가 발생한 경우 예외를 던짐
+     */
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         String errorMessage = exception.getMessage();
@@ -38,7 +50,6 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
                         email = part.substring("email=".length());
                     } else if (part.startsWith("provider=")) {
                         String providerValue = part.substring("provider=".length());
-                        //TODO : OauthProvider 소문자,대문자 통일
                         try{
                             provider = OauthProvider.valueOf(providerValue.toLowerCase());
                         }catch (Exception e){

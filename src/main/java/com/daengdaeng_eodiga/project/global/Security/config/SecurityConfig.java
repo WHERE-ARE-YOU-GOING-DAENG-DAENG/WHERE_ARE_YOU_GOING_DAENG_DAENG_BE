@@ -47,6 +47,12 @@ public class SecurityConfig {
 
         this.ouathController = ouathController;
     }
+    /**
+     * CORS 설정을 위한 {@link CorsConfiguration} Bean을 생성합니다.
+     * @author 김승환
+     * 이 메소드는 CORS 정책을 설정하고, 여러 도메인에서의 요청을 허용합니다.
+     * @return CORS 설정을 위한 {@link CorsConfiguration} 객체
+     */
     @Bean
     public CorsConfiguration corsConfiguration() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -58,7 +64,16 @@ public class SecurityConfig {
 
         return configuration;
     }
-
+    /**
+     * Spring Security 설정을 위한 {@link SecurityFilterChain} Bean을 생성합니다.
+     *  @author 김승환
+     * 이 메소드는 HTTP 보안 설정을 구성하며, CORS 정책, CSRF 보호 비활성화, HTTP 기본 인증 비활성화 등을 포함합니다.
+     * 또한, JWT 필터를 추가하여 인증 처리를 하고, OAuth2 로그인 설정도 구성합니다.
+     *
+     * @param http {@link HttpSecurity} 객체
+     * @return 구성된 {@link SecurityFilterChain} 객체
+     * @throws Exception 설정 중 발생할 수 있는 예외
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 

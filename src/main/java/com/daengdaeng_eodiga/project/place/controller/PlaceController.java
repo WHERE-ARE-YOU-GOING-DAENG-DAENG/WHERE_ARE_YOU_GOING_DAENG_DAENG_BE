@@ -108,12 +108,19 @@ public class PlaceController {
                 request.getLatitude(), request.getLongitude(), userId);
         return ResponseEntity.ok(ApiResponse.success(places));
     }
-
     /**
+     * 사용자의 위치에 따른 추천 장소를 제공하는 메소드입니다.
+     *
+     * 이 메소드는 사용자의 위도와 경도를 바탕으로 추천 장소를 반환합니다.
+     * 만약 사용자가 이전에 요청한 위치가 캐시되어 있으면, 캐시된 데이터를 활용하여
+     * 위치가 5km 이내일 경우 기존 장소 정보를 반환하고, 그렇지 않으면 새로운 장소를 추천합니다.
+     * 위도와 경도가 0.0일 경우, 사용자가 장소 정보 동의를 하지 않았을때 처리하는 로직도 포함됩니다.
+     *
      * @author 김승환
-     * @param customOAuth2User 현재 인증된 사용자의 정보. {@link CustomOAuth2User}에서 사용자 정보를 가져옵니다.
-     * @param request 사용자로부터 받은 위치 요청 정보. {@link NearestRequest} 위도(latitude)와 경도(longitude)
-     * @return 장소 정보
+     * @param customOAuth2User 현재 인증된 사용자의 정보.
+     * @param request 사용자로부터 받은 위치 요청 정보.
+     * @return 추천된 장소 리스트.
+     * @exception UserNotFoundException 사용자가 인증되지 않았을 경우 발생합니다.
      */
     @PostMapping("/recommend")
     public ResponseEntity<ApiResponse<List<PlaceWithScore>>> recommendPlaces(
@@ -150,7 +157,7 @@ public class PlaceController {
             longitude = NoAgreeUserGeoInfo.getLongitude();
             myplace = NoAgreeUserGeoInfo.getPlaceName();
         } else {
-            myplace = geoService.getRegionInfo(latitude, longitude, userId);
+            myplace = geoService.getRegionInfo(latitude, longitude);
         }
 
         List<PlaceWithScore> places = placeService.RecommendPlaces(myplace, latitude, longitude, userId);

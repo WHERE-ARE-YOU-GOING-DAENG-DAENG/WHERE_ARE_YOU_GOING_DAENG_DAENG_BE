@@ -28,7 +28,15 @@ public class GeoService {
 
     private final KakaoApiProperties kakaoApiProperties;
     private final UserService   userService;
-    public String getRegionInfo(double latitude, double longitude,Integer userId)  {
+    /**
+     *
+     * 주어진 위도와 경도를 바탕으로 카카오 API를 사용해 지역 정보를 조회합니다.
+     *  @author 김승환
+     * @param latitude 위도
+     * @param longitude 경도
+     * @return 지역 정보 문자열 (주소) 또는 null (주소를 찾을 수 없는 경우)
+     */
+    public String getRegionInfo(double latitude, double longitude)  {
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", kakaoApiProperties.getKey());
@@ -45,13 +53,27 @@ public class GeoService {
 
         return null;
     }
+    /**
+     * 카카오 API의 응답에서 지역 정보를 추출하여 반환합니다.
+     * @author 김승환
+     * @param response 카카오 API의 응답 객체
+     * @return 주소 정보 문자열
+     */
     private static String getMaps(ResponseEntity<KakaoGeoApiDto> response) {
         List<KakaoGeoApiDto.Document> addressInfoList = Objects.requireNonNull(response.getBody()).getDocuments();
         if(addressInfoList.isEmpty())
             return "";
         return addressInfoList.get(0).getAddress() != null? addressInfoList.get(0).getAddress().toString() : "";
     }
-
+    /**
+     * 위도 경도의 정보가 없는 사용자의 지역 정보를 바탕으로 카카오 API를 사용해 지역 정보를 조회합니다.
+     *@author 김승환
+     * @param userId 사용자의 ID
+     * @return 사용자의 지역 정보를 담고 있는 DTO 객체
+     * @throws UserNotFoundException 사용자가 존재하지 않으면 발생
+     * @throws UserNotFoundGeoAsAddress 사용자의 주소를 찾을 수 없는 경우 발생
+     * @throws UserNotFoundGeoInfo 지리적 정보 처리가 실패한 경우 발생
+     */
     public NoGeoUserInfoDto getNotAgreeInfo(Integer userId)  {
 
         HttpHeaders headers = new HttpHeaders();
@@ -78,12 +100,16 @@ public class GeoService {
             throw new UserNotFoundGeoAsAddress();
         }
 
-
-
-
         return null;
     }
-
+    /**
+     * 카카오 API 응답에서 사용자의 지리적 정보를 추출하여 DTO 객체로 반환합니다.
+     *
+     * @param apiResponseDto 카카오 API 응답 객체
+     * @return 사용자의 지리적 정보를 담은 DTO 객체
+     * @throws UserNotFoundGeoInfo 지리적 정보 처리 시 오류 발생 시 예외
+     * @throws UserNotFoundGeoAsAddress 주소 정보 처리 시 오류 발생 시 예외
+     */
     private static NoGeoUserInfoDto getObjects(KakaoApiResponseDto apiResponseDto) {
         NoGeoUserInfoDto Ret = new NoGeoUserInfoDto();
         try {
@@ -104,8 +130,15 @@ public class GeoService {
 
         return Ret;
     }
-
-
+    /**
+     * 두 지점 간의 거리를 계산하는 메소드 (Haversine 공식을 사용).
+     *
+     * @param oldLatitude 첫 번째 지점의 위도
+     * @param oldLongitude 첫 번째 지점의 경도
+     * @param newLatitude 두 번째 지점의 위도
+     * @param newLongitude 두 번째 지점의 경도
+     * @return 두 지점 간의 거리를 킬로미터 단위로 반환
+     */
     public  double calculateDistance(double oldLatitude, double oldLongitude, double newLatitude, double newLongitude) {
 
         final int R = 6371;
