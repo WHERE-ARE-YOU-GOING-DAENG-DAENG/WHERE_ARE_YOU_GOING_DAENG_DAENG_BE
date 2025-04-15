@@ -119,3 +119,12 @@ server:
       pattern: "%{yyyy-MM-dd HH:mm:ss}t %s %r %{User-Agent}i %{Referer}i %a %b %D"
       max-days: 14
     basedir: .
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name:unknown}

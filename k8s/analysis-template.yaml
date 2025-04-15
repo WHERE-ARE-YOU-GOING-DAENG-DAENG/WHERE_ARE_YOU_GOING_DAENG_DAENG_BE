@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: dang-dang-spring-prometheus-metrics
+  namespace: dang-dang-spring-ns
+spec:
+  args:
+    - name: app-label-value
+  metrics:
+    - name: http-error-rate
+      interval: 30s
+      count: 3
+      failureLimit: 1
+      provider:
+        prometheus:
+          address: http://prometheus-stack-kube-prom-prometheus.monitoring.svc:9090
+          query: |
+            sum(rate(http_server_requests_seconds_count{
+              status=~"^5.*",
+              app="{{args.app-label-value}}",
+              rollouts_pod_template_hash="{{rollout.spec.template.metadata.labels['rollouts-pod-template-hash']}}"
+            }[1m]))
+            /
+            sum(rate(http_server_requests_seconds_count{
+              app="{{args.app-label-value}}",
+              rollouts_pod_template_hash="{{rollout.spec.template.metadata.labels['rollouts-pod-template-hash']}}"
+            }[1m]))
+            > 0.01 # 에러율 1% 초과 시 실패 (쿼리 결과 > 0.01 이면 실패)
+          # --- 수정 끝 ---

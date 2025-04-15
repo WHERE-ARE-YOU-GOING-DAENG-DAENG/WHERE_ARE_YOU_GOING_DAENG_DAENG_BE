@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dang-dang-spring-configmap
+  namespace: dang-dang-spring-ns          # GHA env.K8S_NAMESPACE 와 일치
+data:
+  SPRING_PROFILES_ACTIVE: "prod"
+  LOGGING_LEVEL_ROOT: "INFO"

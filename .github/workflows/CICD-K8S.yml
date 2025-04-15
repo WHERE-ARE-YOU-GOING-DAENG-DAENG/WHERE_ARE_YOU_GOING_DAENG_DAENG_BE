@@ -1,0 +1,107 @@
+name: Deploy Spring Boot to EKS (Argo Rollouts + ESO)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  # ==================================================
+  # --- 사용자 환경에 맞게 수정 ---
+  AWS_REGION: ap-northeast-2                 # AWS 리전
+  AWS_ACCOUNT_ID: "911167897987"      # AWS 계정 ID
+  ECR_REPOSITORY: "app_repo_ecr"
+  EKS_CLUSTER_NAME: "my-eks-cluster"  # EKS 클러스터 이름 (예: my-eks-cluster)
+  APP_NAME: "dang-dang-spring"                  # 애플리케이션 이름 (레이블 등에 사용)
+  K8S_NAMESPACE: "dang-dang-spring-ns" # Terraform에서 지정한 이름과 동일하게
+  ARGO_ROLLOUT_NAME: ${{ env.APP_NAME }}-rollout # Argo Rollout 리소스 이름
+  CONTAINER_NAME: ${{ env.APP_NAME }}-container # Rollout 내 컨테이너 이름
+  OIDC_ROLE_ARN: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/<YOUR_GHA_OIDC_ROLE_NAME> # GitHub Actions용 IAM 역할 ARN
+  MONITORING_NAMESPACE: "monitoring"           # Prometheus/ServiceMonitor 네임스페이스
+  PROMETHEUS_RELEASE_LABEL: "prometheus-stack" # ServiceMonitor가 사용할 Prometheus 릴리스 레이블
+  # --- 수정 끝 ---
+  # ==================================================
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle # or Maven
+        uses: gradle/gradle-build-action@v3
+
+      - name: Build with Gradle # or mvn package
+        run: ./gradlew build -x test
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.OIDC_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+      - name: Set up kubectl & Argo Rollouts plugin
+        run: |
+          # Install kubectl
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          chmod +x kubectl
+          sudo mv kubectl /usr/local/bin/
+          # Install Argo Rollouts plugin
+          curl -sLO https://github.com/argoproj/argo-rollouts/releases/latest/download/kubectl-argo-rollouts-linux-amd64
+          chmod +x ./kubectl-argo-rollouts-linux-amd64
+          sudo mv ./kubectl-argo-rollouts-linux-amd64 /usr/local/bin/kubectl-argo-rollouts
+
+      - name: Configure kubectl for EKS
+        run: aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name ${{ env.EKS_CLUSTER_NAME }}
+
+      - name: Apply Kubernetes manifests from Git (Non-Secret Objects)
+
+        run: |
+          kubectl apply -f k8s/configmap.yaml -n ${{ env.K8S_NAMESPACE }}
+          kubectl apply -f k8s/secret-store.yaml -n ${{ env.K8S_NAMESPACE }} # 또는 ClusterSecretStore는 네임스페이스 없이
+          kubectl apply -f k8s/external-secret.yaml -n ${{ env.K8S_NAMESPACE }}
+          kubectl apply -f k8s/service.yaml -n ${{ env.K8S_NAMESPACE }}
+          kubectl apply -f k8s/servicemonitor.yaml -n ${{ env.MONITORING_NAMESPACE }}
+          kubectl apply -f k8s/analysis-template.yaml -n ${{ env.K8S_NAMESPACE }} # 또는 argo-rollouts 네임스페이스
+          kubectl apply -f k8s/rollout.yaml -n ${{ env.K8S_NAMESPACE }} # Rollout 정의 적용/업데이트
+
+      - name: Trigger Argo Rollout with new image
+        # Rollout 리소스의 이미지 태그만 업데이트하여 배포 시작
+        run: |
+          kubectl argo rollouts set image ${{ env.ARGO_ROLLOUT_NAME }} ${{ env.CONTAINER_NAME }}=${{ steps.build-image.outputs.image }} -n ${{ env.K8S_NAMESPACE }}
+
+      - name: Verify Rollout Status (Watch for Promotion or Rollback)
+        # Rollout이 완료(Healthy)되거나 실패(Degraded)할 때까지 대기
+        run: |
+          kubectl argo rollouts status ${{ env.ARGO_ROLLOUT_NAME }} -n ${{ env.K8S_NAMESPACE }} --watch
+          # Rollout 상태가 최종적으로 Healthy가 아니면 Action 실패 처리
+          if [[ "$(kubectl argo rollouts status ${{ env.ARGO_ROLLOUT_NAME }} -n ${{ env.K8S_NAMESPACE }} | grep Status: | awk '{print $2}')" != "Healthy" ]]; then
+            echo "Rollout failed or was manually aborted!"
+            exit 1
+          fi
