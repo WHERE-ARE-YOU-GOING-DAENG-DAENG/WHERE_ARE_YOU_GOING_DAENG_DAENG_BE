@@ -3,7 +3,7 @@ name: Deploy Spring Boot to EKS (Argo Rollouts + ESO)
 on:
   push:
     branches:
-      - main
+      - feat/eks
   workflow_dispatch:
 
 env:

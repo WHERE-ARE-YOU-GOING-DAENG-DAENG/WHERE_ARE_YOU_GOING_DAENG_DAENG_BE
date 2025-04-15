@@ -1,8 +1,0 @@
-# .github/workflows/cicd-k8s.yml (임시 테스트 내용)
-name: CICD K8S Workflow Test # 워크플로우 이름을 명확히 부여
-on: [push]                 # push 이벤트 시 실행되도록 설정 (모든 브랜치)
-jobs:
-  test_job:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Test workflow from cicd-k8s.yml executed!"
