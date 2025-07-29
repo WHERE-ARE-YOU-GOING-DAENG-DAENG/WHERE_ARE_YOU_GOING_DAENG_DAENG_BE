@@ -57,17 +57,17 @@ public class OuathController {
             .build();
         response.addHeader("Set-Cookie", emailCookie.toString());
 
-        ResponseCookie provideCookie = ResponseCookie.from("provider", provider)
-            .path("/")
-            .sameSite("Lax")
-            .httpOnly(false)
-            .secure(false)
-            .maxAge(60 * 10)
-            .domain(".daengdaeng-where.link")
-            .build();
-        response.addHeader("Set-Cookie", provideCookie.toString());
-        response.sendRedirect(frontUrl+"/user-register");
-    }
+            ResponseCookie provideCookie = ResponseCookie.from("provider", provider)
+                .path("/")
+                .sameSite("Lax")
+                .httpOnly(false)
+                .secure(false)
+                .maxAge(60 * 10)
+                .domain(".daengdaeng-where.link")
+                .build();
+            response.addHeader("Set-Cookie", provideCookie.toString());
+            response.sendRedirect(frontUrl+"/user-register");
+        }
 
     public void deletedUserRedirect(HttpServletResponse response) throws IOException {
         response.sendRedirect(frontUrl+"/error?status=DELETE_USER");
